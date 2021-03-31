@@ -24,6 +24,12 @@ public class EmailTest {
 	private static final String[] TEST_REPLYTO1 = {"email@1.com", "name1"};
 	private static final String[] TEST_REPLYTO2 = {"email@2.com", "name2"};
 	private static final String[] TEST_REPLYTO3 = {"email@3.com", "name3"};
+	private static final String TEST_HOSTNAME = "hostname";
+	private static final String TEST_SUBJECT = "subject";
+	private static final String TEST_CONTENT = "content";
+	private static final boolean TEST_TRUE = true;
+	private static final boolean TEST_FALSE = false;
+	private static final String TEST_STRING = "string";
 
 	//concrete email object to be tested
 	private EmailConcrete emailConcrete;
@@ -102,7 +108,43 @@ public class EmailTest {
 		
 		assertEquals("AddReplyTo size", testReplyToSize, emailConcrete.replyList.size());
 	}
+
+	//Test Email buildMimeMessage()
+	@Test
+	public void testBuildMimeMessage() throws Exception {
+		emailConcrete.setHostName(TEST_HOSTNAME);
+		emailConcrete.setSubject(TEST_SUBJECT);
+		emailConcrete.setContent(TEST_STRING, TEST_CONTENT);
+		emailConcrete.setFrom(TEST_EMAILS[2]);
+		emailConcrete.addTo(TEST_EMAILS);
+		emailConcrete.addBcc(TEST_EMAILS);
+		emailConcrete.addCc(TEST_EMAILS[0]);
+		emailConcrete.addCc(TEST_EMAILS[1]);
+		emailConcrete.addHeader(TEST_HEADER1[0], TEST_HEADER1[1]);
+		emailConcrete.addHeader(TEST_HEADER2[0], TEST_HEADER2[1]);
+		emailConcrete.addHeader(TEST_HEADER3[0], TEST_HEADER3[1]);
+		emailConcrete.addHeader(TEST_HEADER4[0], TEST_HEADER4[1]);
+		emailConcrete.addReplyTo(TEST_REPLYTO1[0], TEST_REPLYTO1[1]);
+		emailConcrete.addReplyTo(TEST_REPLYTO2[0], TEST_REPLYTO2[1]);
+		emailConcrete.addReplyTo(TEST_REPLYTO3[0], TEST_REPLYTO3[1]);
+		emailConcrete.setPopBeforeSmtp(TEST_FALSE,TEST_STRING,TEST_STRING,TEST_STRING);
+		emailConcrete.buildMimeMessage();
+		String testBuildMimeMessageSubject = "subject";
+		assertEquals("Build Mime Message subject", testBuildMimeMessageSubject, emailConcrete.getMimeMessage().getSubject());
+	}
 	
+	//Test Email buildMimeMessage() null build
+	@Test
+	public void testBuildMimeMessageNull() throws Exception {
+		try {
+			emailConcrete.setHostName(TEST_HOSTNAME);
+			emailConcrete.setSubject(null);
+			emailConcrete.setContent(null, null);
+			emailConcrete.buildMimeMessage();
+			fail("BuildMimeMessage null value not working correctly");
+		}catch(EmailException e){}
+	}	
+
 	//Teardown method blank because nothing to really tear down
 	@After
 	public void teardownEmailTest() throws Exception {
