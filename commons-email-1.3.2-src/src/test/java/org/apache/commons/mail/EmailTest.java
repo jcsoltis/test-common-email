@@ -178,6 +178,15 @@ public class EmailTest {
 		}catch(EmailException e){}
 	}
 
+	//Test Email getSentDate()
+	@Test
+	public void testGetSentDate() throws Exception {
+		Date currentSentDate = emailConcrete.getSentDate();
+		emailConcrete.setSentDate(emailConcrete.getSentDate());
+		
+		assertEquals("GetSentDate date return", currentSentDate, emailConcrete.getSentDate());
+	}
+
 	//Teardown method blank because nothing to really tear down
 	@After
 	public void teardownEmailTest() throws Exception {
