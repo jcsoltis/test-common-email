@@ -145,6 +145,22 @@ public class EmailTest {
 		}catch(EmailException e){}
 	}	
 
+	//Test Email getHostName()
+	@Test
+	public void testGetHostName() throws Exception {
+		emailConcrete.setHostName(TEST_HOSTNAME);
+		String testHostName = "hostname";
+		
+		assertEquals("GetHostName return", testHostName, emailConcrete.getHostName());
+	}
+	
+	//Test Email getHostName() null hostname
+	@Test
+	public void testGetHostNameNull() throws Exception {
+		
+		assertNull("GetHostName null return", emailConcrete.getHostName());
+	}
+
 	//Teardown method blank because nothing to really tear down
 	@After
 	public void teardownEmailTest() throws Exception {
