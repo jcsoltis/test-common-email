@@ -21,6 +21,9 @@ public class EmailTest {
 	private static final String[] TEST_HEADER3 = {"name3", "value3"};
 	private static final String[] TEST_HEADER4 = {"name4", "value4"};
 	private static final String[] TEST_HEADER_NULL = {null, null};
+	private static final String[] TEST_REPLYTO1 = {"email@1.com", "name1"};
+	private static final String[] TEST_REPLYTO2 = {"email@2.com", "name2"};
+	private static final String[] TEST_REPLYTO3 = {"email@3.com", "name3"};
 
 	//concrete email object to be tested
 	private EmailConcrete emailConcrete;
@@ -87,6 +90,17 @@ public class EmailTest {
 			emailConcrete.addHeader(TEST_HEADER3[0],TEST_HEADER_NULL[1]);
 			fail("AddHeader null value not working correctly");
 		}catch(IllegalArgumentException e){}
+	}
+
+	//Test Email addReplyTo(String email, String name)
+	@Test
+	public void testAddReplyTo() throws Exception {
+		emailConcrete.addReplyTo(TEST_REPLYTO1[0], TEST_REPLYTO1[1]);
+		emailConcrete.addReplyTo(TEST_REPLYTO2[0], TEST_REPLYTO2[1]);
+		emailConcrete.addReplyTo(TEST_REPLYTO3[0], TEST_REPLYTO3[1]);
+		int testReplyToSize = 3;
+		
+		assertEquals("AddReplyTo size", testReplyToSize, emailConcrete.replyList.size());
 	}
 	
 	//Teardown method blank because nothing to really tear down
