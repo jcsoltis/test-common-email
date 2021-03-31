@@ -193,6 +193,15 @@ public class EmailTest {
 		assertNotNull("GetSocketTimeout returns null", emailConcrete.getSocketConnectionTimeout());
 	}
 
+	//Test Email setFrom(String, email)
+	@Test
+	public void testSetFrom() throws Exception {
+		emailConcrete.setFrom(TEST_EMAILS[2]);
+		InternetAddress testFromAddresses = new InternetAddress("abcdefghijklmnopqrst@abcdefghijklmnopqrst.com.bd");
+		
+		assertEquals("SetFrom correctly set", testFromAddresses, emailConcrete.getFromAddress());
+	}
+
 	//Teardown method blank because nothing to really tear down
 	@After
 	public void teardownEmailTest() throws Exception {
