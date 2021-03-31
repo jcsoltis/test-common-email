@@ -16,6 +16,11 @@ public class EmailTest {
 	private static final String[] TEST_EMAILS = { "ab@bc.com", "a.b@c.org",
 			"abcdefghijklmnopqrst@abcdefghijklmnopqrst.com.bd" };
 	private static final String[] EMPTY_EMAILS = null;
+	private static final String[] TEST_HEADER1 = {"name1", "value1"};
+	private static final String[] TEST_HEADER2 = {"name2", "value2"};
+	private static final String[] TEST_HEADER3 = {"name3", "value3"};
+	private static final String[] TEST_HEADER4 = {"name4", "value4"};
+	private static final String[] TEST_HEADER_NULL = {null, null};
 
 	//concrete email object to be tested
 	private EmailConcrete emailConcrete;
@@ -52,6 +57,36 @@ public class EmailTest {
 		int testCcSize = 2;
 		
 		assertEquals("AddCc size", testCcSize, emailConcrete.getCcAddresses().size());
+	}
+
+	//Test Email addHeader(String name, String value)
+	@Test
+	public void testAddHeader() throws Exception {
+		emailConcrete.addHeader(TEST_HEADER1[0], TEST_HEADER1[1]);
+		emailConcrete.addHeader(TEST_HEADER2[0], TEST_HEADER2[1]);
+		emailConcrete.addHeader(TEST_HEADER3[0], TEST_HEADER3[1]);
+		emailConcrete.addHeader(TEST_HEADER4[0], TEST_HEADER4[1]);
+		int testHeaderSize = 4;
+		
+		assertEquals("AddHeader size", testHeaderSize, emailConcrete.headers.size());
+	}
+	
+	//Test Email addHeader(String name, String value) for null name
+	@Test
+	public void testAddHeaderNullName() throws Exception {
+		try{     
+			emailConcrete.addHeader(TEST_HEADER_NULL[0],TEST_HEADER2[1]);
+			fail("AddHeader null name not working correctly");
+		}catch(IllegalArgumentException e){}
+	}
+	
+	//Test Email addHeader(String name, String value) for null value
+	@Test
+	public void testAddHeaderNullValue() throws Exception {
+		try{     
+			emailConcrete.addHeader(TEST_HEADER3[0],TEST_HEADER_NULL[1]);
+			fail("AddHeader null value not working correctly");
+		}catch(IllegalArgumentException e){}
 	}
 	
 	//Teardown method blank because nothing to really tear down
