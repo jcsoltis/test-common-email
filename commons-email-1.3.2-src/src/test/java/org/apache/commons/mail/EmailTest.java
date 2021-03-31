@@ -161,6 +161,23 @@ public class EmailTest {
 		assertNull("GetHostName null return", emailConcrete.getHostName());
 	}
 
+	//Test Email getMailSession
+	@Test
+	public void testGetMailSession() throws Exception {
+		emailConcrete.setHostName(TEST_HOSTNAME);
+		
+		assertNotNull(emailConcrete.getMailSession());
+	}
+	
+	//Test Email getMailSession() null session
+	@Test
+	public void testGetMailSessionNull() throws Exception {
+		try{     
+			emailConcrete.getMailSession();
+			fail("GetMailSession null value not working correctly");
+		}catch(EmailException e){}
+	}
+
 	//Teardown method blank because nothing to really tear down
 	@After
 	public void teardownEmailTest() throws Exception {
