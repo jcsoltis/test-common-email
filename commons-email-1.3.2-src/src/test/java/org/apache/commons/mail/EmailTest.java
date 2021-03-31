@@ -43,6 +43,16 @@ public class EmailTest {
 			fail("AddBcc null list not working correctly");
 		}catch(EmailException e){}
 	}
+
+	//Test Email addCc(String email)
+	@Test
+	public void testAddCc() throws Exception {
+		emailConcrete.addCc(TEST_EMAILS[0]);
+		emailConcrete.addCc(TEST_EMAILS[1]);
+		int testCcSize = 2;
+		
+		assertEquals("AddCc size", testCcSize, emailConcrete.getCcAddresses().size());
+	}
 	
 	//Teardown method blank because nothing to really tear down
 	@After
