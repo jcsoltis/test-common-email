@@ -187,6 +187,12 @@ public class EmailTest {
 		assertEquals("GetSentDate date return", currentSentDate, emailConcrete.getSentDate());
 	}
 
+	//Test Email getSocketConnectionTimeout()
+	@Test
+	public void testGetSocketConnectionTimeout() throws Exception {
+		assertNotNull("GetSocketTimeout returns null", emailConcrete.getSocketConnectionTimeout());
+	}
+
 	//Teardown method blank because nothing to really tear down
 	@After
 	public void teardownEmailTest() throws Exception {
